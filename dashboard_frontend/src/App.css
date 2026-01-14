@@ -146,6 +146,46 @@
   padding-bottom: 14px;
 }
 
+.SummaryTop {
+  padding: 14px 18px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.Readiness {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.10),
+    rgba(6, 182, 212, 0.06)
+  );
+  min-width: min(360px, 100%);
+}
+
+.Readiness__label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.Readiness__value {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.Readiness__hint {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  padding-top: 6px;
+  max-width: 420px;
+}
+
 .SummaryGrid {
   padding: 14px 18px 18px;
   display: grid;
@@ -324,6 +364,12 @@
   }
   .TopBar__actions {
     justify-content: flex-end;
+  }
+  .SummaryTop {
+    flex-direction: column;
+  }
+  .Readiness {
+    min-width: 0;
   }
   .SkillGrid {
     grid-template-columns: 1fr;
