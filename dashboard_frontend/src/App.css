@@ -246,6 +246,96 @@
   color: var(--muted);
 }
 
+/* Sub-skill rows (interactive controls) */
+.SubSkillList {
+  display: grid;
+  gap: 10px;
+}
+
+.SubSkillRow {
+  border: 1px solid var(--border);
+  background: rgba(59, 130, 246, 0.03);
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.SubSkillRow__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.SubSkillRow__name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.SubSkillRow__value {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.SubSkillRow__controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.SubSkillRow__hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* Stepper buttons */
+.Stepper {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.Stepper__btn {
+  appearance: none;
+  border: 0;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  width: 36px;
+  height: 34px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.Stepper__btn:last-child {
+  border-right: 0;
+}
+
+.Stepper__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.Stepper__btn:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+/* Range slider */
+.Slider {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
 /* Progress */
 .Progress {
   height: 10px;

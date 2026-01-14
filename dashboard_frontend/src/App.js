@@ -138,8 +138,7 @@ function saveStateToStorage(state) {
 }
 
 /**
- * Reducer designed for step 04 (interactive controls).
- * Currently supports a "reset" and future-proof "setSubSkillProgress".
+ * Reducer supports "reset" and interactive "setSubSkillProgress".
  */
 function reducer(state, action) {
   switch (action.type) {
@@ -148,6 +147,8 @@ function reducer(state, action) {
 
     case "setSubSkillProgress": {
       const { skillId, subSkillId, progress } = action.payload || {};
+      if (!skillId || !subSkillId) return state;
+
       const nextSkills = state.skills.map((skill) => {
         if (skill.id !== skillId) return skill;
 
@@ -184,43 +185,31 @@ function App() {
     saveStateToStorage(state);
   }, [state]);
 
-  // Derive view models for existing components.
-  const skillsForGrid = useMemo(() => {
-    return state.skills.map((s) => {
-      const progress = computeSkillProgressFromSubskills(s.subSkills);
+  const totals = useMemo(() => {
+    const skills = state.skills || [];
+    const trackedSkills = skills.length;
 
-      return {
-        name: s.name,
-        progress,
-        tone: s.tone,
-        // Keep meta simple for now; step 04 will introduce interactive details.
-        meta: `${s.subSkills.length} sub-skills`,
-      };
-    });
-  }, [state.skills]);
+    const allSubSkills = skills.flatMap((s) => s.subSkills || []);
+    const trackedSubSkills = allSubSkills.length;
 
-  const summary = useMemo(() => {
-    const trackedCount = state.skills.length;
-    const avg =
-      trackedCount === 0
+    const completedSubSkills = allSubSkills.filter(
+      (ss) => clampProgress(ss.progress) >= 100
+    ).length;
+
+    const avgSkillProgress =
+      trackedSkills === 0
         ? 0
         : clampProgress(
-            state.skills.reduce((acc, s) => {
+            skills.reduce((acc, s) => {
               return acc + computeSkillProgressFromSubskills(s.subSkills);
-            }, 0) / trackedCount
+            }, 0) / trackedSkills
           );
 
-    // For now readiness mirrors avg progress; can evolve later (weights, recency, etc).
-    const readinessValue = `${avg}%`;
-
     return {
-      readinessValue,
-      stats: [
-        { label: "Skills tracked", value: String(trackedCount) },
-        { label: "Avg. progress", value: `${avg}%` },
-        // Placeholder until we add activity logging in later steps.
-        { label: "Streak", value: "— days" },
-      ],
+      trackedSkills,
+      trackedSubSkills,
+      completedSubSkills,
+      avgSkillProgress,
     };
   }, [state.skills]);
 
@@ -235,11 +224,28 @@ function App() {
 
       <main className="Main">
         <section className="Container">
-          <SummarySection readinessValue={summary.readinessValue} stats={summary.stats} />
+          <SummarySection
+            readinessValue={`${totals.avgSkillProgress}%`}
+            subtitle="Overall readiness updates as you adjust sub-skill progress."
+            stats={[
+              { label: "Skills tracked", value: String(totals.trackedSkills) },
+              { label: "Avg. progress", value: `${totals.avgSkillProgress}%` },
+              {
+                label: "Sub-skills done",
+                value: `${totals.completedSubSkills}/${totals.trackedSubSkills}`,
+              },
+            ]}
+          />
 
           <SkillsGrid
-            skills={skillsForGrid}
-            subtitle="Track progress across your core interview prep areas. Controls coming next."
+            skills={state.skills}
+            subtitle="Use sliders and +/- controls to set progress for each sub-skill."
+            onSetSubSkillProgress={(skillId, subSkillId, progress) =>
+              dispatch({
+                type: "setSubSkillProgress",
+                payload: { skillId, subSkillId, progress },
+              })
+            }
           />
 
           <ChartSection />
