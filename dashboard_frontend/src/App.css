@@ -1,104 +1,334 @@
-/* CSS Variables for Theme Management */
+/* Interview Prep Tracker - minimal light theme */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #3b82f6;
+  --success: #06b6d4;
+
+  --bg: #f9fafb;
+  --surface: #ffffff;
+
+  --text: #111827;
+  --muted: #64748b;
+
+  --border: #e5e7eb;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+
+  --radius: 14px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header */
+.TopBar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.TopBar__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.Brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+.Brand__mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(6, 182, 212, 0.18));
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.Brand__text {
+  min-width: 0;
+}
+
+.Brand__name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.Brand__tagline {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.TopBar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Main layout */
+.Main {
+  padding: 22px 0 56px;
+}
+
+.Container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  gap: 18px;
+}
+
+/* Generic card */
+.Card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.Card__header {
+  padding: 18px 18px 0;
+}
+
+.Card__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.Card__subtitle {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Section header */
+.Section {
+  display: grid;
+  gap: 12px;
+}
+
+.Section__header {
+  display: grid;
+  gap: 4px;
+}
+
+.Section__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.Section__subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Summary card */
+.Card--summary {
+  padding-bottom: 14px;
+}
+
+.SummaryGrid {
+  padding: 14px 18px 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.Stat {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.Stat__label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.Stat__value {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Skills */
+.SkillGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.SkillCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.SkillCard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.SkillCard__title {
+  margin: 0;
   font-size: 14px;
+  font-weight: 700;
+}
+
+.SkillCard__meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Progress */
+.Progress {
+  height: 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  overflow: hidden;
+}
+
+.Progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+}
+
+.Progress__bar--success {
+  background: var(--success);
+  border-color: rgba(6, 182, 212, 0.2);
+}
+
+/* Pills */
+.Pill {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: #f8fafc;
+}
+
+.Pill--primary {
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+}
+
+.Pill--success {
+  border-color: rgba(6, 182, 212, 0.25);
+  background: rgba(6, 182, 212, 0.08);
+  color: #0e7490;
+}
+
+/* Button */
+.Button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
   font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.Button:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.Button--primary {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: var(--primary);
+  color: #ffffff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Chart placeholder */
+.ChartCard {
+  padding: 14px;
+}
+
+.ChartPlaceholder {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius);
+  border: 1px dashed rgba(100, 116, 139, 0.35);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.06), rgba(6, 182, 212, 0.03));
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.ChartPlaceholder__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(17, 24, 39, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 24, 39, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.ChartPlaceholder__label {
+  position: relative;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.65);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .SkillGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  to {
-    transform: rotate(360deg);
+  .SummaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 600px) {
+  .TopBar__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .TopBar__actions {
+    justify-content: flex-end;
+  }
+  .SkillGrid {
+    grid-template-columns: 1fr;
+  }
+  .SummaryGrid {
+    grid-template-columns: 1fr;
   }
 }
