@@ -248,7 +248,7 @@ function App() {
             }
           />
 
-          <ChartSection />
+          <ChartSection skills={state.skills} />
         </section>
       </main>
     </div>

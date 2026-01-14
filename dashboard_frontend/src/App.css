@@ -402,9 +402,33 @@
   color: #ffffff;
 }
 
-/* Chart placeholder */
+/* Chart */
 .ChartCard {
   padding: 14px;
+}
+
+/* A11y helper: visually hidden but still available to screen readers */
+.VisuallyHidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Wrapper for chart variants */
+.ChartShell {
+  position: relative;
+}
+
+/* Fixed height canvas area for Chart.js responsiveness */
+.ChartCanvas {
+  height: 300px;
+}
+
+.ChartView--bar {
+  display: none;
 }
 
 .ChartPlaceholder {
@@ -444,6 +468,17 @@
   }
   .SummaryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Use Bar chart on small screens */
+  .ChartView--radar {
+    display: none;
+  }
+  .ChartView--bar {
+    display: block;
+  }
+  .ChartCanvas {
+    height: 260px;
   }
 }
 
